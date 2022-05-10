@@ -1,14 +1,14 @@
 version: '3.8'
 
 services:
-  webberry-postgres:
-    container_name: webberry-postgres
-    hostname: webberry-postgres
+  bookkeeper-postgres:
+    container_name: bookkeeper-postgres
+    hostname: bookkeeper-postgres
     image: postgres:13.0-alpine
     env_file:
       - ./app/.env
     networks:
-      - webberry-main-net
+      - bookkeeper-main-net
     expose:
       - "5432"
     ports:
@@ -17,9 +17,9 @@ services:
       - "postgresql-data:/var/lib/postgresql/data"
     command: -p 5432
 
-  webberry-app:
-    container_name: webberry-app
-    hostname: webberry-app
+  bookkeeper-app:
+    container_name: bookkeeper-app
+    hostname: bookkeeper-app
     build: 
       context: ./app
       args:
@@ -35,10 +35,10 @@ services:
       - "0.0.0.0:8006:8006"
     restart: always
     depends_on:
-      - webberry-postgres
+      - bookkeeper-postgres
     working_dir: /app
     networks:
-      - webberry-main-net
+      - bookkeeper-main-net
 
 
 volumes:
@@ -46,5 +46,5 @@ volumes:
     driver: local
 
 networks:
-  webberry-main-net:
+  bookkeeper-main-net:
     driver: bridge

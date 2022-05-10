@@ -1,4 +1,4 @@
-# Webberry
+# bookkeeper
 
 **Template repository for the dockerized django apps based on postgresql database..**
 
@@ -14,7 +14,7 @@ ___
 3. Update the entrypoint.sh file permissions locally: `chmod +x app/entrypoint.sh`
 4. Build the image : `docker-compose build`
 4. Run the container : `docker-compose up -d`
-5.  Follow outputs alive and track errors, to make continuous development: `docker logs --follow webberry-app`
+5.  Follow outputs alive and track errors, to make continuous development: `docker logs --follow bookkeeper-app`
 
 ## Usefull Commands
 
@@ -25,12 +25,12 @@ ___
 
 ```
 # Follow outputs alive and track errors, to make continuous development : 
-    $ docker logs --follow webberry-app
+    $ docker logs --follow bookkeeper-app
 ```
 
 ```
 # One-shot command :  
-    $ docker-compose up -d --build; docker logs --follow webberry-app
+    $ docker-compose up -d --build; docker logs --follow bookkeeper-app
 ```
 
 ```
@@ -69,7 +69,7 @@ Ensure the default Django tables were created:
 
 ```
 # You can check that the volume was created as well by running:
-    $ docker volume inspect webberry_postgresql_data
+    $ docker volume inspect bookkeeper_postgresql_data
 ```
 
 ```

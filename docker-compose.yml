@@ -1,21 +1,26 @@
 version: '3.8'
 
 services:
-  bookkeeper-postgres:
-    container_name: bookkeeper-postgres
-    hostname: bookkeeper-postgres
-    image: postgres:13.0-alpine
+  bookkeeper-db:
+    container_name: bookkeeper-db
+    hostname: bookkeeper-db
+    image: nouchka/sqlite3:latest
     env_file:
       - ./app/.env
-    networks:
-      - bookkeeper-main-net
-    expose:
-      - "5432"
-    ports:
-      - "5432:5432"
-    volumes:
-      - "postgresql-data:/var/lib/postgresql/data"
-    command: -p 5432
+    
+    # networks: # for postgresql
+    #   - bookkeeper-main-net
+    # expose: # for postgresql
+    #   - "5432"
+    # ports: # for postgresql
+    #   - "5432:5432"
+
+    volumes: # for sqlite3
+      - ./data/db:/root/db/
+
+    # volumes: # for postgresql
+    #   - "db-data:/var/lib/postgresql/data"
+    # command: -p 5432 # for postgresql
 
   bookkeeper-app:
     container_name: bookkeeper-app
@@ -35,15 +40,15 @@ services:
       - "0.0.0.0:8006:8006"
     restart: always
     depends_on:
-      - bookkeeper-postgres
+      - bookkeeper-db
     working_dir: /app
     networks:
       - bookkeeper-main-net
 
 
-volumes:
-  postgresql-data:
-    driver: local
+# volumes: # for postgresql
+#   db-data:
+#     driver: local
 
 networks:
   bookkeeper-main-net:

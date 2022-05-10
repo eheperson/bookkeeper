@@ -10,9 +10,12 @@ RUN apt-get update
 RUN apt-get install dialog -y
 RUN apt-get install apt-utils -yq
 RUN apt-get install gcc -y
+
+# not required when using sqlite
 # Install Postgres
-RUN apt-get install libpq-dev -y
+# RUN apt-get install libpq-dev -y 
 # install netcat : for the nc command in entrypoin.sh
+
 RUN apt-get install -y netcat
 
 # set the working directory

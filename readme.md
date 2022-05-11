@@ -40,6 +40,94 @@ ___
         python manage.py runserver
     ``
 
+## API Test Guide
+
+**api/library/list : GET**
+
+```
+    # example endpoint
+    0.0.0.0:8006/api/library/list
+
+    # no payload required
+```
+
+**api/library/detailed/&lt;int:pk&gt;: GET**
+
+```
+    # example endpoint
+    0.0.0.0:8006/api/library/detailed/1
+
+    # no payload required
+
+```
+
+**api/library/record : POST**
+
+```
+    # example endpoint
+    0.0.0.0:8006/api/library/record
+
+    # example data payload
+    {
+        "title": "Foundation",
+        "author": {
+            "name": "Isaac Asimov",
+            "date_of_birth": "1920-02-01",
+            "date_of_death": "1992-06-04"
+        },
+        "publisher": {
+            "name": "HarperCollins",
+            "address": "",
+            "phone_no": ""
+        },
+        "genre": "1", # fiction
+        "format": "1", # ebook 
+        "page_no": 340,
+        "is_readed": true,
+        "note": "Personal notes about book goes here",
+        "published_date": "2016-08-22"
+    }
+
+```
+
+**api/library/update/&lt;int:pk&gt; : PUT**
+
+```
+    # example endpoint
+    0.0.0.0:8006/api/library/update/1
+
+    # example data payload
+    {
+        "title": "Foundation",
+        "author": {
+            "name": "Asimov Isaac",
+            "date_of_birth": "1920-02-01",
+            "date_of_death": "1992-06-04"
+        },
+        "publisher": {
+            "name": "HarperCollins",
+            "address": "",
+            "phone_no": ""
+        },
+        "genre": "1", # fiction
+        "format": "1", # ebook 
+        "page_no": 340,
+        "is_readed": true,
+        "note": "Personal notes about book goes here",
+        "published_date": "2016-08-22"
+    }
+
+```
+
+**api/library/delete/&lt;int:pk&gt; : DELETE**
+
+```
+    # example endpoint
+    0.0.0.0:8006/api/library/delete/1
+
+    # no payload required
+
+```
 ## Usefull Commands
 
 ```

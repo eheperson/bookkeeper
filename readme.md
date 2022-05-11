@@ -10,7 +10,7 @@
 ___
 ## Preparing : 
 
-### Option 1: 
+### Option 1(Docker-Compose): 
 0. Clone the repo
 1. Copy `env.txt` to `app/.env`
 2. Change the specific fields in `app/.env` (optional)
@@ -19,7 +19,7 @@ ___
 5. Run the container : `docker-compose up -d`
 6.  Follow outputs alive and track errors, to make continuous development: `docker logs --follow bookkeeper-app`
 
-### Option 2: 
+### Option 2 (Local): 
 0. Clone the repo
 1. Copy `env.txt` to `app/.env`
 2. Change the specific fields in `app/.env` (optional)

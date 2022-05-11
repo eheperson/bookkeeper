@@ -15,7 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from booktracker.views import(
+    BookListView,
+    BookDetailedView,
+    bookList,
+    bookDetailed,
+    bookRecord,
+    bookDelete,
+    bookUpdate
+
+)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('api/books', BookListView.as_view()),
+    path('api/library/list', bookList),
+    path('api/library/detailed/<int:pk>', bookDetailed),
+    path('api/library/record', bookRecord),
+    path('api/library/update/<int:pk>', bookUpdate),
+    path('api/library/delete/<int:pk>', bookDelete),
+    # path('admin/', admin.site.urls),
 ]

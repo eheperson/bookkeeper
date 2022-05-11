@@ -36,15 +36,20 @@ class Format(models.TextChoices):
 
 class Author(models.Model):
     name = models.CharField(max_length=250, blank=False, null=False)
+    # first_name = models.CharField(max_length=250, blank=False, null=False)
+    # middle_name = models.CharField(max_length=250, blank=False, null=False)
+    # last_name = models.CharField(max_length=250, blank=False, null=False)
     date_of_birth = models.DateField(auto_now_add=True, blank=True)
     date_of_death = models.DateField(auto_now_add=True, blank=True)
+
+    # class Meta:
+    #      unique_together = ('first_name', 'middle_name', 'last_name')
 
     def __str__(self):
         return self.name
 
 
 class Publisher(models.Model):
-
     name = models.CharField(max_length=250,  blank=False, null=False)
     address = models.CharField(max_length=250,  blank=True)
     phone_no = models.CharField(max_length=250,  blank=True) 
@@ -54,12 +59,13 @@ class Publisher(models.Model):
 
 class Book(models.Model):
     id=models.IntegerField(primary_key=True)
-    published_date = models.DateTimeField(auto_now_add=True, blank=True)
+    published_date = models.DateField(auto_now_add=True, blank=True)
     title = models.CharField(max_length=250, blank=False, unique=True)
     author = models.ForeignKey(Author, related_name="author", on_delete=models.CASCADE, blank=False, null=False)
     publisher = models.ForeignKey(Publisher, related_name="publisher", on_delete=models.CASCADE, blank=False, null=False)
     genre = models.CharField(max_length=3, choices=Genre.choices, default=Genre.DYST)
     format = models.CharField(max_length=3, choices=Format.choices, default=Format.EBK)
+    # isbn = models.Charfield()
     # language = LanguageField()
     page_no = models.IntegerField(null=False, blank=False)
     is_readed = models.BooleanField(default=False)

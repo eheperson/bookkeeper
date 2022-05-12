@@ -1,17 +1,9 @@
-from dataclasses import fields
-from email.policy import default
-from tabnanny import verbose
-from xmlrpc.client import ServerProxy
 from rest_framework import serializers
 from booktracker.models import(
     Author,
     Book,
     Publisher,
-    Genre,
-    Format
-
 )
-from django import forms
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -32,16 +24,20 @@ class BookSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Book
-        fields =  "_all_"
+        fields =  "__all__"
     
     def validate(self, data):
         author = data.pop("author", None)
-        author_name = author.get("name", None)
+        author_first_name = author.get("fist_name", None)
+        author_middle_name = author.get("middle_name", None)
+        author_last_name = author.get("last_name", None)
         author_birth = author.get("date_of_birth", None)
         author_death = author.get("date_of_death", None)
         #
         author,_ = Author.objects.get_or_create(
-            name = author_name,
+            author_first_name = author_first_name,
+            author_middle_name = author_middle_name,
+            author_last_name = author_last_name,
             date_of_birth = author_birth,
             date_of_death = author_death,
         )

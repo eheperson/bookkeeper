@@ -36,24 +36,26 @@ class Format(models.TextChoices):
 
 
 class Author(models.Model):
-    name = models.CharField(max_length=250, blank=False, null=False)
-    # first_name = models.CharField(max_length=250, blank=False, null=False)
-    # middle_name = models.CharField(max_length=250, blank=False, null=False)
-    # last_name = models.CharField(max_length=250, blank=False, null=False)
+    first_name = models.CharField(max_length=250, blank=False, null=False)
+    middle_name = models.CharField(max_length=250, blank=True, null=True)
+    last_name = models.CharField(max_length=250, blank=False, null=False)
     date_of_birth = models.DateField(default=datetime.date.today, blank=True, null=True)
     date_of_death = models.DateField(default=datetime.date.today, blank=True, null=True)
 
-    # class Meta:
-    #      unique_together = ('first_name', 'middle_name', 'last_name')
-
     def __str__(self):
         return self.name
+
+    class Meta:
+         unique_together = ('first_name', 'middle_name', 'last_name')
 
 
 class Publisher(models.Model):
     name = models.CharField(max_length=250,  blank=False, null=False)
     address = models.CharField(max_length=250,  blank=True)
     phone_no = models.CharField(max_length=250,  blank=True) 
+
+    class Meta:
+         unique_together = ('name', 'address', 'phone_no')
 
     def __str__(self):
         return self.name
@@ -65,7 +67,7 @@ class Book(models.Model):
     publisher = models.ForeignKey(Publisher, related_name="publisher", on_delete=models.CASCADE, blank=False, null=False)
     genre = models.CharField(max_length=3, choices=Genre.choices, default=Genre.DYST)
     format = models.CharField(max_length=3, choices=Format.choices, default=Format.EBK)
-    # isbn = models.Charfield()
+    isbn = models.CharField(max_length=250, blank=True, null=True)
     # language = LanguageField()
     page_no = models.IntegerField(null=False, blank=False)
     is_readed = models.BooleanField(default=False)
@@ -74,10 +76,6 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title + self.author
-
-    # def save(self, *args, **kwargs):
-    #     self.full_clean()
-    #     super().save(*args, **kwargs)
-
+        
     class Meta:
-        unique_together = ['author', 'title']
+        unique_together = ['author', 'title', 'publisher']

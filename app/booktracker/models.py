@@ -1,5 +1,6 @@
 from django.db import models
 from django import forms
+import datetime
 # from languages.fields import LanguageField
 
 # Create your models here.
@@ -39,8 +40,8 @@ class Author(models.Model):
     # first_name = models.CharField(max_length=250, blank=False, null=False)
     # middle_name = models.CharField(max_length=250, blank=False, null=False)
     # last_name = models.CharField(max_length=250, blank=False, null=False)
-    date_of_birth = models.DateField(auto_now_add=True, blank=True)
-    date_of_death = models.DateField(auto_now_add=True, blank=True)
+    date_of_birth = models.DateField(default=datetime.date.today, blank=True, null=True)
+    date_of_death = models.DateField(default=datetime.date.today, blank=True, null=True)
 
     # class Meta:
     #      unique_together = ('first_name', 'middle_name', 'last_name')
@@ -58,8 +59,7 @@ class Publisher(models.Model):
         return self.name
 
 class Book(models.Model):
-    id=models.IntegerField(primary_key=True)
-    published_date = models.DateField(auto_now_add=True, blank=True)
+    published_date = models.DateField(default=datetime.date.today, blank=True)
     title = models.CharField(max_length=250, blank=False, unique=True)
     author = models.ForeignKey(Author, related_name="author", on_delete=models.CASCADE, blank=False, null=False)
     publisher = models.ForeignKey(Publisher, related_name="publisher", on_delete=models.CASCADE, blank=False, null=False)

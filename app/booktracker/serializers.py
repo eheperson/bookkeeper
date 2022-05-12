@@ -1,3 +1,4 @@
+from dataclasses import fields
 from email.policy import default
 from tabnanny import verbose
 from xmlrpc.client import ServerProxy
@@ -10,28 +11,64 @@ from booktracker.models import(
     Format
 
 )
+from django import forms
 
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = [
-            "name",
-            "date_of_birth",
-            "date_of_death"
-        ]
-        # exclude = []
+        fields = "__all__"
+
 
 class PublisherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Publisher
-        fields=[
-            "name",
-            "address",
-            "phone_no"
-        ]
+        fields= "__all__"
+
 
 class BookSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer()
+    publisher = PublisherSerializer()
+    
+    class Meta:
+        model = Book
+        fields =  "_all_"
+    
+    def validate(self, data):
+        author = data.pop("author", None)
+        author_name = author.get("name", None)
+        author_birth = author.get("date_of_birth", None)
+        author_death = author.get("date_of_death", None)
+        #
+        author,_ = Author.objects.get_or_create(
+            name = author_name,
+            date_of_birth = author_birth,
+            date_of_death = author_death,
+        )
+        #
+        data['author'] = author
+
+        publisher = data.pop("publisher", None)
+        publisher_name = publisher.get("name", None)
+        publisher_navme = publisher.get("namessssdd", None)
+        print(publisher_navme)
+        publisher_address = publisher.get("address", None)
+        publisher_phone = publisher.get("phone_no", None)
+        #
+        publisher, _ = Publisher.objects.get_or_create(
+            name = publisher_name,
+            address = publisher_address,
+            phone_no = publisher_phone,
+        )
+        #
+        data['publisher'] = publisher
+        return data
+
+
+class BookSerializerExperimental(serializers.ModelSerializer):
+    """
+        this serializer is experimental
+    """
     author= AuthorSerializer()
     publisher=PublisherSerializer()
     class Meta:
@@ -107,96 +144,3 @@ class BookSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance 
-
-# class GeneralSerializer(serializers.Serializer):
-#     author_name = serializers.CharField(required=True)
-#     author_date_of_birth = serializers.DateField(required=False)
-#     author_date_of_death = serializers.DateField(required=False)
-#     #
-#     publisher_name = serializers.CharField()
-#     publisher_address = serializers.CharField()
-#     publisher_phone_no = serializers.CharField()
-#     #
-#     genre = serializers.ChoiceField(choices=Genre.choices, default=Genre.DYST)
-#     format = serializers.ChoiceField(choices=Format.choices, default=Format.EBK)
-#     page_no = serializers.IntegerField()
-#     is_readed = serializers.BooleanField()
-#     note = serializers.CharField(max_length=None, min_length=None, allow_blank=False, trim_whitespace=True)
-#     #
-#     class Meta:
-#         # exclude = []
-#         fields = [
-#             'publish_date',
-#             'title',
-#             'genre',
-#             'format',
-#             'page_no',
-#             'is_readed',
-#             'note',
-#             #
-#             'author_name',
-#             'author_date_of_birth',
-#             'author_date_of_death',
-#             #
-#             'publisher_name',
-#             'publisher_address',
-#             'publisher_phone_no',
-#         ]
-        
-#         # exclude = ['author', 'publisher']
-
-#     # def validate(self, data):
-#     #     print(data)
-#     #     #
-#     #     author_name = data.pop('author_name')
-#     #     author_date_of_birth = data.pop('author_date_of_birth')
-#     #     author_date_of_death = data.pop('author_date_of_death')
-#     #     #
-#     #     publisher_name = data.pop('publisher_name')
-#     #     publisher_address = data.pop('publisher_address')
-#     #     publisher_phone_no = data.pop('publisher_phone_no')
-#     #     #
-#     #     author = Author()
-#     #     author.name = author_name
-#     #     author.date_of_birth = author_date_of_birth
-#     #     author.date_of_death = author_date_of_death 
-
-#     #     # author,_ = Author.objects.get_or_create(
-#     #     #     name = author_name,
-#     #     #     date_of_birth = author_date_of_birth,
-#     #     #     date_of_death = author_date_of_death,
-#     #     # )
-
-#     #     data['author'] = author
-
-#     #     publisher=Publisher()
-
-#     #     publisher.name = publisher_name
-#     #     publisher.address = publisher_address
-#     #     publisher.phone_no = publisher_phone_no
-
-#     #     # publisher, _ = Publisher.objects.get_or_create(
-#     #     #     name = publisher_name,
-#     #     #     address = publisher_address,
-#     #     #     phone_no = publisher_phone_no,
-#     #     # )
-#     #     # data['publisher'] = publisher
-#     #     #
-#     #     print("-------------------------------------")
-#     #     print(data)
-#     #     return data
-
-#     def create(self, validated_data):
-#         print(validated_data)
-#         # validated_data.pop('author_name')
-#         return validated_data
-
-#     # def to_representation(self, instance):
-#     #     print(instance)
-        
-        
-#     #     return super().to_representation(instance)
-
-#     # # def post(self, request, *args, **kwargs):
-#     # #     print(request.data)
-#     # #     request.data.pop('author_name')

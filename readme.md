@@ -38,16 +38,19 @@ ___
 5. Run the development server :
     ```
         python manage.py runserver
-    ``
+    ```
 
 ## API Test Guide
+### Don't forget to delete the comments that start with a sharp(#) in payload.
 
 **api/library/list : GET**
 
 ```
     # example endpoint
-    0.0.0.0:8006/api/library/list
+    0.0.0.0:8006/library/api/list
+```
 
+```
     # no payload required
 ```
 
@@ -55,8 +58,11 @@ ___
 
 ```
     # example endpoint
-    0.0.0.0:8006/api/library/detailed/1
+    0.0.0.0:8006/library/api/detailed/1
 
+```
+
+```
     # no payload required
 
 ```
@@ -65,29 +71,33 @@ ___
 
 ```
     # example endpoint
-    0.0.0.0:8006/api/library/record
+    0.0.0.0:8006/library/api/record
+```
 
+```
     # example data payload
     {
-        "title": "Foundation",
+        "title": "2021 A Space Odyssey",
         "author": {
-            "name": "Isaac Asimov",
-            "date_of_birth": "1920-02-01",
-            "date_of_death": "1992-06-04"
+            "first_name": "Arthur",
+            "first_name": "Charles",
+            "first_name": "Clarke",
+            "date_of_birth": "1917-16-11",
+            "date_of_death": "2008-19-03"
         },
         "publisher": {
-            "name": "HarperCollins",
+            "name": "unknown",
             "address": "",
             "phone_no": ""
         },
-        "genre": "1", # fiction
-        "format": "1", # ebook 
+        "genre": "1", 
+        "format": "1", 
         "page_no": 340,
         "is_readed": true,
+        "isbn": "unknown",
         "note": "Personal notes about book goes here",
         "published_date": "2016-08-22"
     }
-
 ```
 
 **api/library/update/&lt;int:pk&gt; : PUT**
@@ -95,24 +105,30 @@ ___
 ```
     # example endpoint
     0.0.0.0:8006/api/library/update/1
+```
 
+```
+    # example data payload
     # example data payload
     {
-        "title": "Foundation",
+        "title": "2021 A Space Odyssey",
         "author": {
-            "name": "Asimov Isaac",
-            "date_of_birth": "1920-02-01",
-            "date_of_death": "1992-06-04"
+            "first_name": "Arthur",
+            "first_name": "Charles",
+            "first_name": "Clarke",
+            "date_of_birth": "1917-16-11",
+            "date_of_death": "2008-19-03"
         },
         "publisher": {
-            "name": "HarperCollins",
+            "name": "unknown",
             "address": "",
             "phone_no": ""
         },
-        "genre": "1", # fiction
-        "format": "1", # ebook 
+        "genre": "1", 
+        "format": "1", 
         "page_no": 340,
         "is_readed": true,
+        "isbn": "unknown",
         "note": "Personal notes about book goes here",
         "published_date": "2016-08-22"
     }
@@ -124,7 +140,9 @@ ___
 ```
     # example endpoint
     0.0.0.0:8006/api/library/delete/1
+```
 
+```
     # no payload required
 
 ```

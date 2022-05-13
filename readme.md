@@ -81,10 +81,10 @@ ___
         "title": "2021 A Space Odyssey",
         "author": {
             "first_name": "Arthur",
-            "first_name": "Charles",
-            "first_name": "Clarke",
-            "date_of_birth": "1917-16-11",
-            "date_of_death": "2008-19-03"
+            "middle_name": "Charles",
+            "last_name": "Clarke",
+            "date_of_birth": "1917-11-16",
+            "date_of_death": "2008-03-19"
         },
         "publisher": {
             "name": "unknown",

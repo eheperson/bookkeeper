@@ -43,7 +43,7 @@ ___
 ## API Test Guide
 ### Don't forget to delete the comments that start with a sharp(#) in payload.
 
-**api/library/list : GET**
+**library/api/list : GET**
 
 ```
     # example endpoint
@@ -55,7 +55,7 @@ ___
     # no payload required
 ```
 
-**api/library/detailed/&lt;int:pk&gt;: GET**
+**library/api/detailed/&lt;int:pk&gt;: GET**
 
 ```
     # example endpoint
@@ -68,7 +68,7 @@ ___
 
 ```
 
-**api/library/record : POST**
+**library/api/record : POST**
 
 ```
     # example endpoint
@@ -101,11 +101,11 @@ ___
     }
 ```
 
-**api/library/update/&lt;int:pk&gt; : PUT**
+**library/api/update/&lt;int:pk&gt; : PUT**
 
 ```
     # example endpoint
-    0.0.0.0:8006/api/library/update/1
+    0.0.0.0:8006/library/api/update/1
 ```
 
 ```
@@ -135,11 +135,11 @@ ___
 
 ```
 
-**api/library/delete/&lt;int:pk&gt; : DELETE**
+**library/api/delete/&lt;int:pk&gt; : DELETE**
 
 ```
     # example endpoint
-    0.0.0.0:8006/api/library/delete/1
+    0.0.0.0:8006/library/api/delete/1
 ```
 
 ```

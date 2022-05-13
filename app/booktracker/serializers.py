@@ -26,18 +26,18 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields =  "__all__"
     
-    def validate(self, data):
+    def to_internal_value(self, data):
         author = data.pop("author", None)
-        author_first_name = author.get("fist_name", None)
+        author_first_name = author.get("first_name", None)
         author_middle_name = author.get("middle_name", None)
         author_last_name = author.get("last_name", None)
         author_birth = author.get("date_of_birth", None)
         author_death = author.get("date_of_death", None)
         #
         author,_ = Author.objects.get_or_create(
-            author_first_name = author_first_name,
-            author_middle_name = author_middle_name,
-            author_last_name = author_last_name,
+            first_name = author_first_name,
+            middle_name = author_middle_name,
+            last_name = author_last_name,
             date_of_birth = author_birth,
             date_of_death = author_death,
         )

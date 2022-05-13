@@ -30,12 +30,19 @@ def bookDetailed(request,pk):
 def bookRecord(request):
     # books = Book.objects.all()
     serializer = BookSerializer(data=request.data)
+    print(serializer.initial_data)
     if serializer.is_valid():
         serializer.save()
-    return Response(
-        serializer.data,
-        status=status.HTTP_201_CREATED
-    )
+        return Response(
+            serializer.data,
+            status=status.HTTP_201_CREATED
+        )
+    else:
+        return(
+            Response(
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        )
 
 
 @api_view(['PUT'])
